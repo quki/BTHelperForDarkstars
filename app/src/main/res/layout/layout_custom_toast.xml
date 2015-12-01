@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/red_custom"
+    android:id="@+id/toast_layout_root"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/toastMessage"
+        android:layout_width="match_parent"
+        android:textSize="14sp"
+        android:layout_height="45dp"
+        android:textColor="#ffffff"
+        android:text="블루투스를 켜주세요."
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+</LinearLayout>
