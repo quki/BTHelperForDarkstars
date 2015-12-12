@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -165,5 +167,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listPairedDevices();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.go_wait_result){
+            startActivity(new Intent(MainActivity.this, WaitResultActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
