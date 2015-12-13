@@ -8,10 +8,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.quki.bluetooth.controller.qukibluetoothcontroller.WaitResultActivity">
-<Button
-    android:id="@+id/go_result"
-    android:layout_centerVertical="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="결과확인"/>
+
+    <Button
+        android:id="@+id/start_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/stop_read"
+        android:text="읽기시작" />
+    <Button
+        android:id="@+id/stop_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/go_result"
+        android:text="읽기중지" />
+
+    <Button
+        android:id="@+id/go_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="결과확인" />
 </RelativeLayout>
