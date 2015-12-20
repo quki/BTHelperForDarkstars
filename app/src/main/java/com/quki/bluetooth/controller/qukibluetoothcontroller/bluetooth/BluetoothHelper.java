@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,16 +28,19 @@ public class BluetoothHelper {
 
     private static final String TAG = "==BluetoothHelper==";
     private ActionDeviceAndPhone mActionInterface;
+    private ActionBluetoothRead mActionInterfaceForRead;
 
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
-    int counter;
     volatile boolean stopWorker;
     InputStream inputStream;
 
     public void registerInterface(ActionDeviceAndPhone mActionInterface) {
         this.mActionInterface = mActionInterface;
+    }
+    public void registerInterfaceForRead(ActionBluetoothRead mActionInterfaceForRead){
+        this.mActionInterfaceForRead = mActionInterfaceForRead;
     }
 
     /**
@@ -65,6 +69,28 @@ public class BluetoothHelper {
         writeData(data);
         disconnect();
 
+    }
+
+    public void fetchDataFromDeviceTest() {
+        final Handler handler = new Handler();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int count=0;
+                final ArrayList<Integer> al = new ArrayList<>();
+                while(count != 10){
+                    count+= 1;
+                    al.add(count);
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mActionInterfaceForRead.getDataArray(al.toString());
+                    }
+                });
+            }
+        }).start();
     }
 
     /**
@@ -158,10 +184,11 @@ public class BluetoothHelper {
                                     System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
                                     final String data = new String(encodedBytes, "US-ASCII");
                                     readBufferPosition = 0;
-
                                     handler.post(new Runnable() {
                                         public void run() {
+
                                             Log.d("===FETCHED DATA===", data);
+                                            mActionInterfaceForRead.getDataArray(data);
                                         }
                                     });
                                 } else {
